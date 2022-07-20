@@ -34,7 +34,6 @@ namespace ApiCatalogo.Controllers
         {
             try
             {
-                throw new DataMisalignedException();
                 return await _context.Categorias.AsNoTracking().ToListAsync();
             }
             catch (Exception)
