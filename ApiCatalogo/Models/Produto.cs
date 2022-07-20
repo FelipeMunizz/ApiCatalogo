@@ -9,19 +9,19 @@ namespace ApiCatalogo.Models
     {
         public int ProdutoId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Nome é obrigatório")]
         [StringLength(100)]
         public string? Nome { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Descrição é obrigatório")]
         [StringLength(200)]
         public string? Descricao { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Preço é obrigatório")]
         [Column(TypeName="decimal(10,2)")]
         public decimal Preco { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Imagem é obrigatório")]
         [StringLength(300)]
         public string? ImagemUrl { get; set; }
         public float Estoque { get; set; }

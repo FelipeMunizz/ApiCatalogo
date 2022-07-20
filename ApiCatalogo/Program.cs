@@ -1,4 +1,5 @@
 using ApiCatalogo.Data;
+using ApiCatalogo.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -16,6 +17,8 @@ builder.Services.AddSwaggerGen();
 string connectionstring = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
  options.UseSqlServer(connectionstring));
+
+builder.Services.AddTransient<IMeuServico, MeuServico>();
 
 var app = builder.Build();
 

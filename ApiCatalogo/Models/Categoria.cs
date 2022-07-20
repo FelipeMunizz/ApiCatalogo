@@ -15,11 +15,11 @@ namespace ApiCatalogo.Models
 
         public int CategoriaId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Nome é obrigatório")]
         [StringLength(100)]
         public string? Nome { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Imagem é obrigatório")]
         [StringLength(300)]
         public string? ImagemUrl { get; set; }
 
