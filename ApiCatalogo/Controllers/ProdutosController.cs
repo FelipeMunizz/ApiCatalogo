@@ -21,11 +21,11 @@ namespace ApiCatalogo.Controllers
         //1° interface somente para leitura,
         //2° enumerable trabalha por demanda,
         //3°não necessito ter toda coleção na memória
-        public ActionResult<IEnumerable<Produto>> Get()
+        public async Task<ActionResult<IEnumerable<Produto>>> Get()
         {
             try
             {
-                var produtos = _context.Produtos.AsNoTracking().ToList();
+                var produtos = await _context.Produtos.AsNoTracking().ToListAsync();
                 if (produtos is null)
                 {
                     return NotFound("Produtos não encontrados");
@@ -39,12 +39,12 @@ namespace ApiCatalogo.Controllers
 
         }
 
-        [HttpGet("{id:int}", Name = "ObterProduto")]
-        public ActionResult<Produto> Get(int id)
+        [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
+        public async Task <ActionResult<Produto>> Get(int id)
         {
             try
             {
-                var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+                var produto = await _context.Produtos.FirstOrDefaultAsync(p => p.ProdutoId == id);
                 if (produto is null)
                 {
                     return NotFound("Produto não Encontrado");
