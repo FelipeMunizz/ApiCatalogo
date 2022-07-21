@@ -1,4 +1,5 @@
 ﻿using ApiCatalogo.Data;
+using ApiCatalogo.Filters;
 using ApiCatalogo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ApiLoggingFilter))]
         //Motivos por usar interface de enumerable ao inves de List<>
         //1° interface somente para leitura,
         //2° enumerable trabalha por demanda,

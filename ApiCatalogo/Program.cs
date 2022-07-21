@@ -1,5 +1,6 @@
 using ApiCatalogo.Data;
-using ApiCatalogo.Services;
+using ApiCatalogo.Extensions;
+using ApiCatalogo.Filters;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -18,7 +19,7 @@ string connectionstring = builder.Configuration.GetConnectionString("DefaultConn
 builder.Services.AddDbContext<AppDbContext>(options =>
  options.UseSqlServer(connectionstring));
 
-builder.Services.AddTransient<IMeuServico, MeuServico>();
+builder.Services.AddScoped<ApiLoggingFilter>();
 
 var app = builder.Build();
 
@@ -28,6 +29,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ConfigureExceptionHandler();
 
 app.UseHttpsRedirection();
 
