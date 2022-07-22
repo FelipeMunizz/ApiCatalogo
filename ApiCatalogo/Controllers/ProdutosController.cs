@@ -1,9 +1,8 @@
-﻿using ApiCatalogo.Data;
-using ApiCatalogo.Filters;
+﻿using ApiCatalogo.DTOs;
 using ApiCatalogo.Models;
-using Microsoft.AspNetCore.Http;
+using ApiCatalogo.Repositry;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogo.Controllers
 {
@@ -11,116 +10,92 @@ namespace ApiCatalogo.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
-        private readonly AppDbContext _context;
-        public ProdutosController(AppDbContext context)
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _uof;
+        public ProdutosController(IUnitOfWork context, IMapper mapper)
         {
-            _context = context;
+            _uof = context;
+            _mapper = mapper;
         }
 
-        [HttpGet]
-        [ServiceFilter(typeof(ApiLoggingFilter))]
-        //Motivos por usar interface de enumerable ao inves de List<>
-        //1° interface somente para leitura,
-        //2° enumerable trabalha por demanda,
-        //3°não necessito ter toda coleção na memória
-        public  ActionResult<IEnumerable<Produto>> Get()
+        [HttpGet("menorpreco")]
+        public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosPrecos()
         {
-            try
-            {
-                var produtos =  _context.Produtos.AsNoTracking().ToList();
-                if (produtos is null)
-                {
-                    return NotFound("Produtos não encontrados");
-                }
-                return produtos;
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro ao tratar a sua solicitação");
-            }
+            var produtos = _uof.ProdutoRepository.GetProdutoPorPreco().ToList();
+            var produtosDTO = _mapper.Map<List<ProdutoDTO>>(produtos);
 
+            return produtosDTO;
+        }
+
+
+        [HttpGet]
+        public ActionResult<IEnumerable<ProdutoDTO>> Get()
+        {
+            var produtos = _uof.ProdutoRepository.Get().ToList();
+            var produtosDTO = _mapper.Map<List<ProdutoDTO>>(produtos);
+
+            return produtosDTO;
         }
 
         [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
-        public ActionResult<Produto> Get(int id)
+        public ActionResult<ProdutoDTO> Get(int id)
         {
-            try
+            var produto = _uof.ProdutoRepository.GetById(p => p.ProdutoId == id);
+
+            if (produto == null)
             {
-                var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
-                if (produto is null)
-                {
-                    return NotFound("Produto não Encontrado");
-                }
-                return produto;
+                return NotFound();
             }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro ao tratar a sua solicitação");
-            }
+
+            var produtoDTO = _mapper.Map<ProdutoDTO>(produto);
+            return produtoDTO;
         }
 
         [HttpPost]
-        public ActionResult Post(Produto produto)
+        public ActionResult Post([FromBody] ProdutoDTO produtoDto)
         {
-            try
-            {
-                if (produto is null)
-                    return BadRequest("Não foi possivel adicionar o produto");
+            var produto = _mapper.Map<Produto>(produtoDto);
 
-                _context.Produtos.Add(produto);
-                _context.SaveChanges();
+            _uof.ProdutoRepository.Add(produto);
+            _uof.Commit();
 
-                return new CreatedAtRouteResult("ObterProduto",
-                    new { id = produto.ProdutoId }, produto);
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro ao tratar a sua solicitação");
-            }
+            var produtoDTO = _mapper.Map<ProdutoDTO>(produto);
+
+            return new CreatedAtRouteResult("ObterProduto",
+                new { id = produto.ProdutoId }, produtoDTO);
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult Put(int id, Produto produto)
+        public ActionResult Put(int id, ProdutoDTO produtoDTO)
         {
-            try
+            if (id != produtoDTO.ProdutoId)
             {
-                if (id != produto.ProdutoId)
-                {
-                    return BadRequest();
-                }
-                _context.Entry(produto).State = EntityState.Modified;
-                _context.SaveChanges();
-
-                return Ok(produto);
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro ao tratar a sua solicitação");
+                return BadRequest();
             }
 
+            var produto = _mapper.Map<Produto>(produtoDTO);
+
+            _uof.ProdutoRepository.Update(produto);
+            _uof.Commit();
+            return Ok();
         }
 
         [HttpDelete("{id:int}")]
-        public ActionResult Delete(int id)
+        public ActionResult<ProdutoDTO> Delete(int id)
         {
-            try
+            var produto = _uof.ProdutoRepository.GetById(p => p.ProdutoId == id);
+
+            if(produto == null)
             {
-                var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
-
-                if (produto is null)
-                {
-                    return NotFound("Produto não localizado.");
-                }
-
-                _context.Produtos.Remove(produto);
-                _context.SaveChanges();
-
-                return Ok("Produto excluido com sucesso.");
+                return NotFound();
             }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro ao tratar a sua solicitação");
-            }
+
+            _uof.ProdutoRepository.Delete(produto);
+            _uof.Commit();
+
+            var produtoDTO = _mapper.Map<ProdutoDTO>(produto);
+
+            return produtoDTO;
         }
     }
 }

@@ -1,0 +1,75 @@
+Information: 14 - Now listening on: https://localhost:7029
+Information: 14 - Now listening on: http://localhost:5029
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: E:\Projetos\Apis\ApiCatalogo\ApiCatalogo\
+Information: 10403 - Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.6' with options: None
+Information: 20101 - Executed DbCommand (73ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[CategoriaId], [c].[ImagemUrl], [c].[Nome]
+FROM [Categorias] AS [c]
+Information: 14 - Now listening on: https://localhost:7029
+Information: 14 - Now listening on: http://localhost:5029
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: E:\Projetos\Apis\ApiCatalogo\ApiCatalogo\
+Information: 10403 - Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.6' with options: None
+Information: 20101 - Executed DbCommand (70ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[CategoriaId], [c].[ImagemUrl], [c].[Nome], [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Categorias] AS [c]
+LEFT JOIN [Produtos] AS [p] ON [c].[CategoriaId] = [p].[CategoriaId]
+WHERE [c].[CategoriaId] <= 5
+ORDER BY [c].[CategoriaId]
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ################################################
+Information: 0 - quinta-feira, 21 de julho de 2022
+Information: 0 - ModelState: True
+Information: 0 - #################################################
+Information: 10403 - Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.6' with options: None
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ##################################################
+Information: 0 - quinta-feira, 21 de julho de 2022
+Information: 0 - ###################################################
+Information: 14 - Now listening on: https://localhost:7029
+Information: 14 - Now listening on: http://localhost:5029
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: E:\Projetos\Apis\ApiCatalogo\ApiCatalogo\
+Information: 10403 - Entity Framework Core 6.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.7' with options: None
+Information: 20101 - Executed DbCommand (39ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[CategoriaId], [c].[ImagemUrl], [c].[Nome]
+FROM [Categorias] AS [c]
+Information: 10403 - Entity Framework Core 6.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.7' with options: None
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[CategoriaId], [c].[ImagemUrl], [c].[Nome], [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Categorias] AS [c]
+LEFT JOIN [Produtos] AS [p] ON [c].[CategoriaId] = [p].[CategoriaId]
+ORDER BY [c].[CategoriaId]
+Information: 10403 - Entity Framework Core 6.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.7' with options: None
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+Information: 10403 - Entity Framework Core 6.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.7' with options: None
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+Information: 10403 - Entity Framework Core 6.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.7' with options: None
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+ORDER BY [p].[Preco]
+Information: 10403 - Entity Framework Core 6.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.7' with options: None
+Information: 20101 - Executed DbCommand (92ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime2), @p2='?' (Size = 200), @p3='?' (DbType = Single), @p4='?' (Size = 300), @p5='?' (Size = 100), @p6='?' (Precision = 10) (Scale = 2) (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Produtos] ([CategoriaId], [DataCadastro], [Descricao], [Estoque], [ImagemUrl], [Nome], [Preco])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+SELECT [ProdutoId]
+FROM [Produtos]
+WHERE @@ROWCOUNT = 1 AND [ProdutoId] = scope_identity();
+Information: 10403 - Entity Framework Core 6.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.7' with options: None
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProdutoId], [p].[CategoriaId], [p].[DataCadastro], [p].[Descricao], [p].[Estoque], [p].[ImagemUrl], [p].[Nome], [p].[Preco]
+FROM [Produtos] AS [p]
+ORDER BY [p].[Preco]
