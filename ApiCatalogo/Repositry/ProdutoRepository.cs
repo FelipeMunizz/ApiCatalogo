@@ -2,6 +2,7 @@
 using ApiCatalogo.Models;
 using ApiCatalogo.Pagination;
 using ApiCatalogo.Repositry.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogo.Repositry
 {
@@ -9,14 +10,14 @@ namespace ApiCatalogo.Repositry
     {
         public ProdutoRepository(AppDbContext context) : base(context) { }
 
-        public IEnumerable<Produto> GetProdutoPorPreco()
+        public async Task<IEnumerable<Produto>> GetProdutoPorPreco()
         {
-            return Get().OrderBy(c => c.Preco).ToList();
+            return await Get().OrderBy(c => c.Preco).ToListAsync();
         }
 
-        public PagedList<Produto> GetProdutos(ProdutosParameters produtosParameters)
+        public async Task<PagedList<Produto>> GetProdutos(ProdutosParameters produtosParameters)
         {
-            return PagedList<Produto>.ToPagedList(Get().OrderBy(on => on.ProdutoId), 
+            return await PagedList<Produto>.ToPagedList(Get().OrderBy(on => on.ProdutoId), 
                 produtosParameters.PageNumber, produtosParameters.PageSize);
         }
     }

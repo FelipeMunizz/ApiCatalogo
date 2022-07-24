@@ -1,4 +1,6 @@
-﻿namespace ApiCatalogo.Pagination
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace ApiCatalogo.Pagination
 {
     public class PagedList<T> : List<T>
     {
@@ -20,10 +22,10 @@
             AddRange(itens);
         }
 
-        public static PagedList<T> ToPagedList(IQueryable<T> source, int pageNumber, int pageSize)
+        public async static Task<PagedList<T>> ToPagedList(IQueryable<T> source, int pageNumber, int pageSize)
         {
             var count = source.Count();
-            var itens = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            var itens = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
 
             return new PagedList<T>(itens, count, pageNumber, pageSize);
         }
