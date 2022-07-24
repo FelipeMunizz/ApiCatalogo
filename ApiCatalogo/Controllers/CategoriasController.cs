@@ -1,8 +1,10 @@
 ﻿using ApiCatalogo.DTOs;
 using ApiCatalogo.Models;
-using ApiCatalogo.Repositry;
+using ApiCatalogo.Pagination;
+using ApiCatalogo.Repositry.Interface;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ApiCatalogo.Controllers
 {
@@ -28,9 +30,20 @@ namespace ApiCatalogo.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoriaDTO>>> Get()
+        public async Task<ActionResult<IEnumerable<CategoriaDTO>>> Get([FromQuery]CategoriasParameters categoriasParameters)
         {
-            var categorias = _uof.CategoriaRepository.Get().ToList();
+            var categorias = _uof.CategoriaRepository.GetCategorias(categoriasParameters);
+
+            var metaData = new
+            {
+                categorias.TotalCount,
+                categorias.PageSize,
+                categorias.CurrentPage,
+                categorias.TotalPages,
+                categorias.HasNext,
+                categorias.HasPrevious
+            };
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metaData));
             var categoriasDTO = _mapper.Map<List<CategoriaDTO>>(categorias);
 
             return categoriasDTO;

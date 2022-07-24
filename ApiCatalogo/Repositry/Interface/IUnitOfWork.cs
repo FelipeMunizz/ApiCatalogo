@@ -1,4 +1,4 @@
-﻿namespace ApiCatalogo.Repositry
+﻿namespace ApiCatalogo.Repositry.Interface
 {
     public interface IUnitOfWork
     {

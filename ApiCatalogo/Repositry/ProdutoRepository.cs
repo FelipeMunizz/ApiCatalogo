@@ -1,6 +1,7 @@
 ﻿using ApiCatalogo.Data;
 using ApiCatalogo.Models;
 using ApiCatalogo.Pagination;
+using ApiCatalogo.Repositry.Interface;
 
 namespace ApiCatalogo.Repositry
 {
@@ -13,13 +14,10 @@ namespace ApiCatalogo.Repositry
             return Get().OrderBy(c => c.Preco).ToList();
         }
 
-        public IEnumerable<Produto> GetProdutos(ProdutosParameters produtosParameters)
+        public PagedList<Produto> GetProdutos(ProdutosParameters produtosParameters)
         {
-            return Get()
-                .OrderBy(on => on.Nome)
-                .Skip((produtosParameters.PageNumber - 1) * produtosParameters.PageSize)
-                .Take(produtosParameters.PageSize)
-                .ToList();
+            return PagedList<Produto>.ToPagedList(Get().OrderBy(on => on.ProdutoId), 
+                produtosParameters.PageNumber, produtosParameters.PageSize);
         }
     }
 }

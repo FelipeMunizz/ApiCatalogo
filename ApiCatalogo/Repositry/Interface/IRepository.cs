@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace ApiCatalogo.Repositry
+namespace ApiCatalogo.Repositry.Interface
 {
     public interface IRepository<T>
     {

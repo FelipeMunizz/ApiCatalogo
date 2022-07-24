@@ -1,4 +1,5 @@
 ﻿using ApiCatalogo.Data;
+using ApiCatalogo.Repositry.Interface;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
