@@ -229,3 +229,20 @@ CREATE UNIQUE INDEX [UserNameIndex] ON [AspNetUsers] ([NormalizedUserName]) WHER
 Information: 20101 - Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
 VALUES (N'20220725123755_Identity', N'6.0.7');
+Information: 14 - Now listening on: https://localhost:7029
+Information: 14 - Now listening on: http://localhost:5029
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Nova pasta\apicatalogo\ApiCatalogo\
+Error: 1 - An unhandled exception has occurred while executing the request.
+Information: 14 - Now listening on: https://localhost:7029
+Information: 14 - Now listening on: http://localhost:5029
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Nova pasta\apicatalogo\ApiCatalogo\
+Error: 1 - An unhandled exception has occurred while executing the request.
+Information: 14 - Now listening on: https://localhost:7029
+Information: 14 - Now listening on: http://localhost:5029
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Nova pasta\apicatalogo\ApiCatalogo\
