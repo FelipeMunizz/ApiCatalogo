@@ -6,6 +6,7 @@ using ApiCatalogo.Logging;
 using ApiCatalogo.Repositry;
 using ApiCatalogo.Repositry.Interface;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -23,6 +24,10 @@ builder.Services.AddSwaggerGen();
 string connectionstring = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
  options.UseSqlServer(connectionstring));
+
+builder.Services.AddIdentity<IdentityUser,IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -55,6 +60,8 @@ if (app.Environment.IsDevelopment())
 app.ConfigureExceptionHandler();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
