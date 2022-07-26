@@ -55,7 +55,7 @@ namespace ApiCatalogo.Controllers
             }
 
             await _signInManager.SignInAsync(user, false);
-            return Ok(GeraToken(model));
+            return Ok("Usuario Registrado");
         }
 
         [HttpPost("login")]
@@ -78,8 +78,8 @@ namespace ApiCatalogo.Controllers
                 return BadRequest(ModelState);
             }
         }
-
-        public UsuarioToken GeraToken(UsuarioDTO userInfo)
+        
+        private UsuarioToken GeraToken(UsuarioDTO userInfo)
         {
             var claims = new[]
             {
@@ -89,7 +89,7 @@ namespace ApiCatalogo.Controllers
             };
 
             var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+                Encoding.UTF8.GetBytes(_configuration["Jwt:key"]));
 
             var credenciais = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
