@@ -483,3 +483,31 @@ SELECT [c].[CategoriaId], [c].[ImagemUrl], [c].[Nome], [p].[ProdutoId], [p].[Cat
 FROM [Categorias] AS [c]
 LEFT JOIN [Produtos] AS [p] ON [c].[CategoriaId] = [p].[CategoriaId]
 ORDER BY [c].[CategoriaId]
+Information: 14 - Now listening on: https://localhost:7029
+Information: 14 - Now listening on: http://localhost:5029
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: E:\Projetos\Apis\ApiCatalogo\ApiCatalogo\
+Information: 14 - Now listening on: https://localhost:7029
+Information: 14 - Now listening on: http://localhost:5029
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: E:\Projetos\Apis\ApiCatalogo\ApiCatalogo\
+Information: 10403 - Entity Framework Core 6.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.7' with options: None
+Information: 20101 - Executed DbCommand (36ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Categorias] AS [c]
+Information: 20101 - Executed DbCommand (67ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [c].[CategoriaId], [c].[ImagemUrl], [c].[Nome]
+FROM [Categorias] AS [c]
+ORDER BY [c].[CategoriaId]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+Information: 10403 - Entity Framework Core 6.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.7' with options: None
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Categorias] AS [c]
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [c].[CategoriaId], [c].[ImagemUrl], [c].[Nome]
+FROM [Categorias] AS [c]
+ORDER BY [c].[CategoriaId]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY

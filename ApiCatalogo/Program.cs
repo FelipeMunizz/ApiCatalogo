@@ -15,6 +15,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 // Add services to the container.
 
@@ -50,6 +51,17 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
 });
 
 string connectionstring = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -108,6 +120,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.MapControllers();
 
