@@ -15,7 +15,7 @@ namespace ApiCatalogo.Repositry
 
         public IQueryable<T> Get()
         {
-            return _context.Set<T>().AsNoTracking();
+            return _context.Set<T>().AsNoTracking().ToList();
         }
 
         public async Task<T> GetById(Expression<Func<T, bool>> predicate)
