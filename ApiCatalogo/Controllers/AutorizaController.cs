@@ -75,7 +75,7 @@ namespace ApiCatalogo.Controllers
             else
             {
                 ModelState.AddModelError(string.Empty, "Login Inválido.....");
-                return BadRequest(ModelState);
+                return Unauthorized(ModelState);
             }
         }
         
